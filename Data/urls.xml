@@ -3,10 +3,16 @@
     <url domain="time.com" score="10"/>
 	  <url domain="www.guardian.co.uk" score="10"/>
     <url domain="www.snopes.com" score="20"/>
+	  <url domain="www.economist.com" score="20"/>
+    <url domain="www.nytimes.com" score="10"/>
+    <url domain="www.bloomberg.com" score="20"/>
 	</whitelist>
   <blacklist>
 	   <url domain="www.mirror.co.uk" score="25"/>
      <url domain="www.thesun.co.uk" score="50"/>
      <url domain="www.dailymail.co.uk" score="50"/>
+	   <url domain="www.bullshitnews.org" score="50"/>
+     <url domain="www.standard.co.uk" score="30"/>
+     <url domain="www.foxnews.com" score="50"/>
 	</blacklist>
 </urls>
