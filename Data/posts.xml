@@ -15,7 +15,7 @@
     <responses IDs=""/>
   </post>
   <post ID="4" user="3" status="Unclassified">
-    <body>Corbyn tested positive for Covid-19 after travelling to Russia</body>
+    <body>Corbyn tested positive for COVID-19 after travelling to Russia</body>
     <responses IDs="5, 10"/>
   </post>
   <post ID="5" user="0" status="Unclassified">
@@ -27,7 +27,7 @@
     <responses IDs="7"/>
   </post>
   <post ID="7" user="1" status="Unclassified">
-    <body>This is false information, mate.</body>
+    <body>This is fake.</body>
   </post>
   <post ID="8" user="2" status="Unclassified">
     <body>Boris Johnson spends weekend with Melania Trump in New York City Trump Towers</body>
@@ -49,3 +49,52 @@
     <response IDs=""/>
   </post>
 </posts>
+<post ID="11" user="0" status="Unclassified">
+    <!--Put the text of the message in here, no more than 250 characters-->
+    <body>Vatican confirms, Pope Francis tested positive for Coronavirus</body>
+    <!--These are the ID numbers of the responses, eg "1, 3, 8"-->
+    <responses IDs="1"/>
+  </post>
+  <post ID="12" user="2" status="Unclassified">
+    <body>I don't think this is true.</body>
+  </post>
+</posts>
+<post ID="13" user="1" status="Unclassified">
+    <!--Put the text of the message in here, no more than 250 characters-->
+    <body>Crashed bus carried non-citizens to vote for Biden</body>
+    <!--These are the ID numbers of the responses, eg "1, 3, 8"-->
+    <responses IDs="1"/>
+  </post>
+  <post ID="14" user="3" status="Unclassified">
+    <body>Stop bs-ing me mate.</body>
+  </post>
+</posts>
+<post ID="15" user="2" status="Unclassified">
+    <!--Put the text of the message in here, no more than 250 characters-->
+    <body>President Trump Cures Opioid Epidemic</body>
+    <!--These are the ID numbers of the responses, eg "1, 3, 8"-->
+    <responses IDs="1"/>
+  </post>
+  <post ID="16" user="0" status="Unclassified">
+    <body>You're full of shit, mate.</body>
+  </post>
+</posts>
+<post ID="17" user="2" status="Unclassified">
+    <!--Put the text of the message in here, no more than 250 characters-->
+    <body>Climate change is a hoax, according to mainstream media</body>
+    <!--These are the ID numbers of the responses, eg "1, 3, 8"-->
+    <responses IDs="1"/>
+  </post>
+  <post ID="18" user="0" status="Unclassified">
+    <body>Stop it with this madness.</body>
+</post>
+</posts>
+<post ID="19" user="2" status="Unclassified">
+    <!--Put the text of the message in here, no more than 250 characters-->
+    <body>Bernie Bro Arrested After Attempting To Illegally Inject President Trump With Marijuana</body>
+    <!--These are the ID numbers of the responses, eg "1, 3, 8"-->
+    <responses IDs="1"/>
+  </post>
+  <post ID="20" user="0" status="Unclassified">
+    <body>You're full of it, mate.</body>
+
