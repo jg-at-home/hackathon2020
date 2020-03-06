@@ -52,6 +52,8 @@ namespace Hackathon2020
 
         public ICommand HomeCommand { get; }
 
+        public HashSet<string> Keywords => _keywords;
+
         public Post SelectedPost
         {
             get => _selectedPost;
@@ -182,7 +184,17 @@ namespace Hackathon2020
 
         private void loadKeywords()
         {
-
+            var doc = new XmlDocument();
+            doc.Load("./Data/keywords.xml");
+            var wordNodes = doc.SelectNodes("/keywords/word");
+            if (wordNodes != null) {
+                foreach (var node in wordNodes) {
+                    if (node is XmlElement wordElement) {
+                        var word = wordElement.InnerText.ToLower();
+                        _keywords.Add(word);
+                    }
+                }
+            }
         }
 
         private void loadUsers()
@@ -345,5 +357,6 @@ namespace Hackathon2020
         private int _nextPostID;
         private readonly List<Post> _rootLevelPosts = new List<Post>();
         private readonly Dictionary<string, int> _knownDomainScores = new Dictionary<string, int>();
+        private readonly HashSet<string> _keywords = new HashSet<string>();
     }
 }
