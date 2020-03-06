@@ -1,0 +1,12 @@
+<urls>
+  <whitelist>
+    <url domain="time.com" score="1"/>
+	  <url domain="www.guardian.co.uk" score="1"/>
+    <url domain="www.snopes.com" score="5"/>
+	</whitelist>
+  <blacklist>
+	   <url domain="www.mirror.co.uk" score="5"/>
+     <url domain="www.thesun.co.uk" score="10"/>
+     <url domain="www.dailymail.co.uk" score="5"/>
+	</blacklist>
+</urls>
