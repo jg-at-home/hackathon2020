@@ -1,0 +1,12 @@
+﻿<Application x:Class="Hackathon2020.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Hackathon2020"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="Roboto">pack:://application:,,,/Fonts/#Roboto-Light</FontFamily>
+        <SolidColorBrush x:Key="vqBlue" Color="#0f93f4"></SolidColorBrush>
+        <SolidColorBrush x:Key="vqDarkBlue" Color="#084678"></SolidColorBrush>
+        <SolidColorBrush x:Key="vqLightBlue" Color="#76b7e7"></SolidColorBrush>
+    </Application.Resources>
+</Application>

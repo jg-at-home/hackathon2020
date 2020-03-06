@@ -1,0 +1,51 @@
+<posts>
+  <post ID="0" user="0" status="Unclassified">
+    <body>I think that president Trump has created Coronavirus because he's an idiot</body>
+    <responses IDs="1"/>
+  </post>
+  <post ID="1" user="1" status="Unclassified">
+    <body>You are bullshitting me, mate.</body>
+  </post>
+  <post ID="2" user="2" status="Unclassified">
+    <body>Leonardo DiCaprio is partially to blame for the Amazon Rainforest Fires</body>
+    <responses IDs="3"/>
+  </post>
+  <post ID="3" user="3" status="Unclassified">
+    <body>This is fake news, mate.</body>
+    <responses IDs=""/>
+  </post>
+  <post ID="4" user="3" status="Unclassified">
+    <body>Corbyn tested positive for Covid-19 after travelling to Russia</body>
+    <responses IDs="5, 10"/>
+  </post>
+  <post ID="5" user="0" status="Unclassified">
+    <body>This is fabricated information.</body>
+    <responses IDs=""/>
+  </post>
+  <post ID="6" user="1" status="Unclassified">
+    <body>Allegations indicate that climate change was created by Greta Thunberg</body>
+    <responses IDs="7"/>
+  </post>
+  <post ID="7" user="1" status="Unclassified">
+    <body>This is false information, mate.</body>
+  </post>
+  <post ID="8" user="2" status="Unclassified">
+    <body>Boris Johnson spends weekend with Melania Trump in New York City Trump Towers</body>
+    <responses IDs="9"/>
+  </post>
+  <post ID="9" user="3" status="Unclassified">
+    <body>This is utter nonsense, mate.</body>
+  </post>
+  <post ID="10" user="0" status="Unclassified">
+    <body>Rubbish, mate.</body>
+    <responses IDs=""/>
+  </post>
+  <post ID="11" user="3" status="Unclassified">
+    <body>New research finds that asbestos can aid in Coronavirus cure efforts</body>
+    <responses IDs=""/>
+  </post>
+  <post ID="12" user="0" status="Unclassified">
+    <body>Wow I am so very stressed</body>
+    <response IDs=""/>
+  </post>
+</posts>

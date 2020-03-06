@@ -1,0 +1,58 @@
+﻿<Window x:Class="Hackathon2020.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hackathon2020"
+        mc:Ignorable="d"
+        Title="Chitter" Height="600" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/TextBlocks.xaml"/>
+                <ResourceDictionary Source="PostTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <DockPanel >
+        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Width="200" Margin="4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Image Source="/Images/social-media.png" Width="32" Height="32" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding ActiveUser.UserName}" Margin="4 0 0 0" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left" Width="200">
+                <Border Background="{StaticResource vqBlue}" CornerRadius="12" Width="160">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <Image Source="/Images/home-icon.png" Width="24" Height="24"/>
+                        <TextBlock Text="Home" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="AliceBlue" Margin="4 0 0 0"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left" Width="200">
+                <Border Background="{StaticResource vqBlue}" CornerRadius="12" Width="160">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <Image Source="/Images/notification-icon.png" Width="24" Height="24"/>
+                        <TextBlock Text="Notifications" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="AliceBlue" Margin="4 0 0 0"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left" Width="200"  Command="{Binding ComposeCommand}">
+                <Border Background="{StaticResource vqLightBlue}" CornerRadius="12" Width="160" Height="32">
+                    <TextBlock Text="Compose" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Border>
+            </Button>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" ItemsSource="{Binding Posts}" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedIndex="{Binding SelectedPostIndex}"/>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Responses}" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedIndex="{Binding SelectedResponseIndex}"/>
+        </Grid>
+    </DockPanel>
+
+</Window>

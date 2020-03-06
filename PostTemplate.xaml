@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Hackathon2020">
+    <DataTemplate DataType="{x:Type local:Post}">
+        <DataTemplate.Resources>
+            <local:HighlightingTextConverter x:Key="HighlightingTextConverter"/>
+        </DataTemplate.Resources>
+        <Border Background="AliceBlue">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding Avatar}" Width="32" Height="32"/>
+                    <TextBlock Text="@" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="4 0 0 0"/>
+                    <TextBlock Text="{Binding UserName}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="(" Margin="4 0 4 0" VerticalAlignment="Center"/>
+                    <Ellipse Fill="Red" Width="12" Height="12" VerticalAlignment="Center"/>
+                    <TextBlock Text="=" Margin="4 0 4 0" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding User.RedCount}" VerticalAlignment="Center"/>
+                    <TextBlock Text="/" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding User.PostCount}" VerticalAlignment="Center"/>
+                    <TextBlock Text=")" VerticalAlignment="Center"/>
+                </StackPanel>
+                <ContentControl Width="270" Height="140" Content="{Binding BodyText, Converter={StaticResource HighlightingTextConverter}}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 4 0" VerticalAlignment="Center" Height="20">
+                    <TextBlock Text="{Binding QualityText}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 0 4 0"/>
+                    <Ellipse Width="12" Height="12" Fill="{Binding QualityBrush}" Margin="0 0 4 0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Hackathon2020.ComposeDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Hackathon2020"
+             mc:Ignorable="d" 
+             Width="450" Height="250"
+             d:DataContext="{d:DesignInstance local:ComposeViewModel}"
+             d:DesignHeight="250" d:DesignWidth="450">
+    <StackPanel Orientation="Vertical" Margin="2">
+        <TextBox Height="190" MaxLength="276" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>        
+        <StackPanel Height="20" Orientation="Horizontal" Background="{StaticResource vqDarkBlue}">
+            <TextBlock Text="{Binding QualityText}" Foreground="AliceBlue" Width="420" Height="20" VerticalAlignment="Center"/>
+            <Ellipse Width="12" Height="12" Fill="{Binding QualityBrush}" Margin="10 0 0 0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="180" Command="{Binding PostCommand}">
+                <Border Background="{StaticResource vqBlue}" CornerRadius="12" Width="160">
+                    <TextBlock Text="Post" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="AliceBlue"/>
+                </Border>
+            </Button>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="180" Command="{Binding CancelCommand}" Margin="86 0 0 0">
+                <Border Background="{StaticResource vqBlue}" CornerRadius="12" Width="160">
+                    <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="AliceBlue"/>
+                </Border>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
