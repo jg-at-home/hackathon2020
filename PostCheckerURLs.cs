@@ -15,12 +15,17 @@ namespace Hackathon2020
             var regex = @"(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?";
             var matches = Regex.Matches(text, regex);
             foreach(Match match in matches) {
-                var domain = UrlHelpers.ExtractDomainFromUrl(match.Value.ToLower());
+                var url = match.Value.ToLower();
+                var domain = UrlHelpers.ExtractDomainFromUrl(url);
                 if (viewModel.KnownDomainScores.TryGetValue(domain, out var score)) {
                     result += score;
                 }
                 else {
-                    result += processUrl(viewModel, domain);
+                    try {
+                        result += processUrl(viewModel, url);
+                    }
+                    catch {
+                    }
                 }
             }
 
@@ -28,7 +33,9 @@ namespace Hackathon2020
         }
 
         private static int processUrl(ViewModel viewModel, string url)
-        {
+        { 
+            var uniqueHit = 0;
+            var hitCount = 0;
             using (var webClient = new WebClient()) {
                 var siteText = webClient.DownloadString(url);
                 var lines = siteText.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
@@ -42,13 +49,14 @@ namespace Hackathon2020
                 foreach (var keyword in viewModel.Keywords) {
                     var regex = new Regex($@"\b{keyword}\b");
                     var matches = regex.Matches(corpus);
-                    foreach (Match match in matches) {
-
+                    hitCount += matches.Count;
+                    if (matches.Count > 0) {
+                        ++uniqueHit;
                     }
                 }
             }
 
-            return 0;
+            return uniqueHit * hitCount * 5;
         }
     }
 }
