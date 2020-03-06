@@ -35,6 +35,7 @@ namespace Hackathon2020
         : base(null)
         {
             ComposeCommand = new RelayCommand((_)=>true, composePost);
+            HomeCommand = new RelayCommand((_)=>true, goHome);
 
             loadUsers();
             loadPosts();
@@ -42,6 +43,8 @@ namespace Hackathon2020
         }
 
         public ICommand ComposeCommand { get; }
+
+        public ICommand HomeCommand { get; }
 
         public Post SelectedPost
         {
@@ -106,6 +109,17 @@ namespace Hackathon2020
         public ObservableCollection<Post> Posts { get; } = new ObservableCollection<Post>();
 
         public ObservableCollection<Post> Responses { get; } = new ObservableCollection<Post>();
+
+        private void goHome(object arg)
+        {
+            if (SelectedPost?.Parent != null) {
+                Posts.Clear();
+                Posts.AddRange(_rootLevelPosts);
+                if (Posts.Count > 0) {
+                    SelectedPost = Posts[0];
+                }
+            }
+        }
 
         private void composePost(object arg)
         {
@@ -191,7 +205,8 @@ namespace Hackathon2020
 
                 // Only add root level posts to the visible post list. Child posts appear in the response panel.
                 if (proxy.ParentID < 0) {
-                    Posts.Add(post);    
+                    Posts.Add(post);
+                    _rootLevelPosts.Add(post);
                 }
 
                 postList.Add(post);
@@ -275,5 +290,6 @@ namespace Hackathon2020
         private ChitterUser _currentUser;
         private readonly List<Post> _postsToCheck = new List<Post>();
         private int _nextPostID;
+        private readonly List<Post> _rootLevelPosts = new List<Post>();
     }
 }

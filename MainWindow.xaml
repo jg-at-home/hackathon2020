@@ -23,7 +23,7 @@
                 <Image Source="/Images/social-media.png" Width="32" Height="32" HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding ActiveUser.UserName}" Margin="4 0 0 0" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
-            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left" Width="200">
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left" Width="200" Command="{Binding HomeCommand}">
                 <Border Background="{StaticResource vqBlue}" CornerRadius="12" Width="160">
                     <StackPanel Orientation="Horizontal" Margin="2">
                         <Image Source="/Images/home-icon.png" Width="24" Height="24"/>
