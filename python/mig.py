@@ -4,11 +4,16 @@ import re
 import numpy as np
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
-# import string
+
 num = 0
-tree = ET.parse("Data/posts.xml")
+tree = ET.parse("Data/posts.xml")               # Location of posts xml file
 root = tree.getroot()
 numPosts = int(len(root))
+
+with open("Data/keywords.txt", "r") as f:
+    f_kw = f.readlines()
+for line in f_kw:
+    key_words = line.split()
 
 for num in range(numPosts):
     def strip_url(id):
@@ -50,24 +55,26 @@ for num in range(numPosts):
         # break multi-headlines into a line each
         chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
         # drop blank lines
+
+        unique_hit = 0
+
         text = '\n'.join(chunk for chunk in chunks if chunk)
+        for i in range(len(key_words)):
+            r = re.compile(key_words[i], flags=re.I | re.X)
+            match = r.findall(text)
+            if match:
+                print("Dubious source found: We found ", np.size(match), "matches to {}".format(key_words[i]))
+                mNumber = np.size(match)
+                unique_hit += 1
 
-        r = re.compile(r'\bMAINSTREAM\sMEDIA\b', flags=re.I | re.X)
-        s = re.compile(r'\bTRUMP\b', flags=re.I | re.X)
-        t = re.compile(r'\bHOAX\b', flags=re.I | re.X)
-        match = r.findall(text)
-        matchs = s.findall(text)
-        matcht = t.findall(text)
-        if match:
-            print("Dubious source found: We found ", np.size(match), "matches to mainstream media")
-            mNumber = np.size(match)
-        if matchs:
-            print("Dubious source found: We found ", np.size(matchs), "matches to Trump")
-            mNumbers = np.size(matchs)
-        if matcht:
-            print("Dubious source found: We found ", np.size(matcht), "matches to hoax")
-            mNumbert = np.size(matcht)
-
+        if unique_hit == 0:
+            print("Keyword matches: {}\nSource looks good!".format(unique_hit))
+        elif unique_hit == 1:
+            print("Keyword matches: {}\nSource is dubious".format(unique_hit))
+        elif unique_hit == 2:
+            print("Keyword matches: {}\nSource is likely bullshit".format(unique_hit))
+        else:
+            print("Keyword matches: {}\nSource is total Garbage, you Nigel Farage!".format(unique_hit))
     # if match < 1:
     #     print("Seems Legit - Green Alert")
 
