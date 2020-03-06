@@ -50,7 +50,9 @@
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Column="0" ItemsSource="{Binding Posts}" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedIndex="{Binding SelectedPostIndex}"/>
+            <ListBox Grid.Column="0" ItemsSource="{Binding Posts}" VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                     SelectionChanged="Selector_OnSelectionChanged" IsSynchronizedWithCurrentItem="True"
+                     SelectedIndex="{Binding SelectedPostIndex}"/>
             <ListBox Grid.Column="1" ItemsSource="{Binding Responses}" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedIndex="{Binding SelectedResponseIndex}"/>
         </Grid>
     </DockPanel>

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Hackathon2020
 {
@@ -11,6 +12,14 @@ namespace Hackathon2020
         {
             InitializeComponent();
             _viewModel = (ViewModel) DataContext;
+        }
+
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ListBox listBox) {
+                listBox.ScrollIntoView(listBox.SelectedItem);
+            }
         }
 
         private ViewModel _viewModel;

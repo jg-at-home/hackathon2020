@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 using MVVM;
@@ -39,7 +40,10 @@ namespace Hackathon2020
 
             loadKnownDomains();
             loadKeywords();
+            
             loadUsers();
+            ActiveUser = _users[0];
+            
             loadPosts();
             checkPosts();
         }
@@ -109,6 +113,8 @@ namespace Hackathon2020
             }
         }
 
+        public Dictionary<string, int> KnownDomainScores => _knownDomainScores;
+
         public List<ChitterUser> Users => _users;
 
         public ObservableCollection<Post> Posts { get; } = new ObservableCollection<Post>();
@@ -131,9 +137,13 @@ namespace Hackathon2020
             var viewModel = new ComposeViewModel(this, _currentUser);
             DialogService.Instance.ShowDialog(viewModel);
             if (viewModel.Result) {
-                var post = new Post(null, _nextPostID, _currentUser);
+                var post = new Post(null, _nextPostID, _currentUser) {
+                    BodyText = viewModel.Message, 
+                    Quality = viewModel.Quality
+                };
                 ++_nextPostID;
                 Posts.Add(post);
+                CollectionViewSource.GetDefaultView(Posts).MoveCurrentTo(post);
             }
         }
 
@@ -147,11 +157,11 @@ namespace Hackathon2020
             if (whiteNodes != null) {
                 foreach (var node in whiteNodes) {
                     if (node is XmlElement urlElement) {
-                        var domain = urlElement.GetAttribute("domain");
-                        Debug.Assert(!_domainScores.ContainsKey(domain));
+                        var domain = urlElement.GetAttribute("domain").ToLower();
+                        Debug.Assert(!_knownDomainScores.ContainsKey(domain));
                         var score = int.Parse(urlElement.GetAttribute("score"));
                         // Good sites have negative weight!
-                        _domainScores[domain] = -Math.Abs(score);
+                        _knownDomainScores[domain] = -Math.Abs(score);
                     }
                 }
             }
@@ -160,11 +170,11 @@ namespace Hackathon2020
             if (blackNodes != null) {
                 foreach (var node in blackNodes) {
                     if (node is XmlElement urlElement) {
-                        var domain = urlElement.GetAttribute("domain");
-                        Debug.Assert(!_domainScores.ContainsKey(domain));
+                        var domain = urlElement.GetAttribute("domain").ToLower();
+                        Debug.Assert(!_knownDomainScores.ContainsKey(domain));
                         var score = int.Parse(urlElement.GetAttribute("score"));
                         // Bad sites have positive weight!
-                        _domainScores[domain] = Math.Abs(score);
+                        _knownDomainScores[domain] = Math.Abs(score);
                     }
                 }
             }
@@ -334,6 +344,6 @@ namespace Hackathon2020
         private readonly List<Post> _postsToCheck = new List<Post>();
         private int _nextPostID;
         private readonly List<Post> _rootLevelPosts = new List<Post>();
-        private readonly Dictionary<string, int> _domainScores = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _knownDomainScores = new Dictionary<string, int>();
     }
 }

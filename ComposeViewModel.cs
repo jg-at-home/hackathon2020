@@ -76,7 +76,7 @@ namespace Hackathon2020
 
         private bool canPost(object arg)
         {
-            return !string.IsNullOrEmpty(_messageText);
+            return !string.IsNullOrEmpty(_messageText) && (_status != Status.Unclassified);
         }
 
         private void onPost(object arg)
@@ -96,7 +96,7 @@ namespace Hackathon2020
         }
 
         private string _messageText;
-        private Status _status;
+        private volatile Status _status;
         private readonly ChitterUser _poster;
         private DispatcherTimer _idleTimer;
         private readonly ViewModel _viewModel;

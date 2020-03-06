@@ -12,7 +12,7 @@ namespace Hackathon2020
             var score = 0;
 
             score += checkUsers(viewModel, text);
-            score += checkURLs(viewModel, text);
+            score += checkKnownDomains(viewModel, text);
 
             if (score > 67) {
                 return Status.Deplorable;
