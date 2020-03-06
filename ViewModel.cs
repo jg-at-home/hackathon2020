@@ -123,7 +123,7 @@ namespace Hackathon2020
 
         private void composePost(object arg)
         {
-            var viewModel = new ComposeViewModel(_currentUser);
+            var viewModel = new ComposeViewModel(this, _currentUser);
             DialogService.Instance.ShowDialog(viewModel);
             if (viewModel.Result) {
                 var post = new Post(null, _nextPostID, _currentUser);
@@ -247,10 +247,10 @@ namespace Hackathon2020
             ThreadPool.QueueUserWorkItem(runPostChecks, post);
         }
 
-        private static void runPostChecks(object arg)
+        private void runPostChecks(object arg)
         {
             var post = (Post) arg;
-            var status = PostChecker.Run(post.BodyText);
+            var status = PostChecker.Run(this, post.BodyText);
             post.Quality = status;
             var user = post.User;
             ++user.PostCount;

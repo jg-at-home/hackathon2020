@@ -9,12 +9,13 @@ namespace Hackathon2020
 {
     public class ComposeViewModel : DialogViewModel
     { 
-        public ComposeViewModel(ChitterUser poster) 
+        public ComposeViewModel(ViewModel viewModel, ChitterUser poster) 
         : base("Compose post")
         {
             PostCommand = new RelayCommand(canPost, onPost);
             CancelCommand = new RelayCommand((x)=>true, onCancel);
             _poster = poster;
+            _viewModel = viewModel;
             Quality = Status.Unclassified;
         }
 
@@ -69,7 +70,7 @@ namespace Hackathon2020
         {
             _idleTimer.Stop();
             if (!string.IsNullOrEmpty(_messageText)) {
-                ThreadPool.QueueUserWorkItem((_) => { Quality = PostChecker.Run(_messageText); });
+                ThreadPool.QueueUserWorkItem((_) => { Quality = PostChecker.Run(_viewModel, _messageText); });
             }
         }
 
@@ -98,5 +99,6 @@ namespace Hackathon2020
         private Status _status;
         private readonly ChitterUser _poster;
         private DispatcherTimer _idleTimer;
+        private readonly ViewModel _viewModel;
     }
 }
