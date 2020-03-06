@@ -56,7 +56,7 @@ namespace Hackathon2020
                 }
             }
 
-            return uniqueHit * hitCount * 5;
+            return uniqueHit * hitCount * 15;
         }
     }
 }
