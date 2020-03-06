@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace Hackathon2020
 {
@@ -10,13 +11,7 @@ namespace Hackathon2020
         {
             var score = 0;
 
-            // 1. Find all references to users '@[letter|symbol][letter|symbol|number]*'
-
-            var userMatches = Regex.Matches(text, @"\B@[A-Za-z]\w+\b");
-            foreach (var match in userMatches) {
-
-            }
-
+            score += checkUsers(viewModel, text);
             score += checkURLs(viewModel, text);
 
             if (score > 67) {
@@ -28,6 +23,26 @@ namespace Hackathon2020
             else {
                 return Status.Good;
             }
+        }
+
+        private static int checkUsers(ViewModel viewModel, string text)
+        {
+            var score = 0;
+            var userMatches = Regex.Matches(text, @"\B@[A-Za-z]\w+\b");
+            // Only count users once.
+            var scoredUsers = new HashSet<string>();
+            foreach (Match match in userMatches) {
+                var userName = match.Value.Substring(1);
+                if (!scoredUsers.Contains(userName)) {
+                    scoredUsers.Add(userName);
+                    var user = viewModel.Users.Find(u => u.UserName == userName);
+                    if ((user != null) && (user.PostCount > 0)) {
+                        score += (user.RedCount * 100) / user.PostCount;
+                    }
+                }
+            }
+
+            return score;
         }
     }
 }

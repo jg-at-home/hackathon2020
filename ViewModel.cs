@@ -37,6 +37,8 @@ namespace Hackathon2020
             ComposeCommand = new RelayCommand((_)=>true, composePost);
             HomeCommand = new RelayCommand((_)=>true, goHome);
 
+            loadKnownDomains();
+            loadKeywords();
             loadUsers();
             loadPosts();
             checkPosts();
@@ -95,6 +97,7 @@ namespace Hackathon2020
             }
         }
 
+
         public bool UnreadPosts
         {
             get => _unreadPosts;
@@ -105,6 +108,8 @@ namespace Hackathon2020
                 }
             }
         }
+
+        public List<ChitterUser> Users => _users;
 
         public ObservableCollection<Post> Posts { get; } = new ObservableCollection<Post>();
 
@@ -130,6 +135,44 @@ namespace Hackathon2020
                 ++_nextPostID;
                 Posts.Add(post);
             }
+        }
+
+        private void loadKnownDomains()
+        {
+            var doc = new XmlDocument();
+            doc.Load("./Data/urls.xml");
+            
+            // Whitelist.
+            var whiteNodes = doc.SelectNodes("/urls/whitelist/url");
+            if (whiteNodes != null) {
+                foreach (var node in whiteNodes) {
+                    if (node is XmlElement urlElement) {
+                        var domain = urlElement.GetAttribute("domain");
+                        Debug.Assert(!_domainScores.ContainsKey(domain));
+                        var score = int.Parse(urlElement.GetAttribute("score"));
+                        // Good sites have negative weight!
+                        _domainScores[domain] = -Math.Abs(score);
+                    }
+                }
+            }
+
+            var blackNodes = doc.SelectNodes("urls/blacklist/url");
+            if (blackNodes != null) {
+                foreach (var node in blackNodes) {
+                    if (node is XmlElement urlElement) {
+                        var domain = urlElement.GetAttribute("domain");
+                        Debug.Assert(!_domainScores.ContainsKey(domain));
+                        var score = int.Parse(urlElement.GetAttribute("score"));
+                        // Bad sites have positive weight!
+                        _domainScores[domain] = Math.Abs(score);
+                    }
+                }
+            }
+        }
+
+        private void loadKeywords()
+        {
+
         }
 
         private void loadUsers()
@@ -291,5 +334,6 @@ namespace Hackathon2020
         private readonly List<Post> _postsToCheck = new List<Post>();
         private int _nextPostID;
         private readonly List<Post> _rootLevelPosts = new List<Post>();
+        private readonly Dictionary<string, int> _domainScores = new Dictionary<string, int>();
     }
 }
